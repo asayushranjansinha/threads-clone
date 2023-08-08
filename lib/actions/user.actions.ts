@@ -42,5 +42,25 @@ export async function updateUser({
     if (path === '/profile/edit') {
         revalidatePath(path);
     }
-    
+
 }
+
+
+// Action to Fetch current User
+export async function fetchUser(userId: string) {
+    try {
+        connectToDB();
+
+        return await User
+            .findOne({ id: userId })
+        // .populate({
+        //     path:'communities',
+        //     model:Community
+        // })
+    }
+    catch (error: any) {
+        throw new Error(`Failed to Fetch user: ${error.message}`)
+    }
+}
+
+
